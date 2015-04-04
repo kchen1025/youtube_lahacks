@@ -33,6 +33,9 @@ def generate_json(url:str)-> 'json':
     result = get_result(url)
     return result
 
+def pull_video_time(json_file:'json')->str:
+    pass
+
 
 
     

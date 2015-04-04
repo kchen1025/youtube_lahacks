@@ -16,20 +16,8 @@ class time:
 
     #convert int seconds into strings 
     def to_string(self):
-        test = ''
-        if len(self.minutes) == 1:
-            test = '0' + self.minutes
-        else:
-            test = self.minutes
-             
-        if len(self.seconds) == 1:
-            test = test + '0' + self.seconds
-        else:
-            test = test + 'self.seconds'
-        return test
+        return self.timestamp_list
  
-if __name__ == '__main__':
-    a = time(['00:01','02:33','23:33'])
-    print(a.to_seconds())
+
 
 

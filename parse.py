@@ -1,7 +1,7 @@
 import connect
 import re
-from collections import defaultdict
-
+from collections import defaultdict, OrderedDict
+import time_convert as tc
 
 reg_ex = '(.*[0-9]{1,2}:[0-9][0-9].*)'
 
@@ -17,14 +17,28 @@ class algorithm:
                 timestamps[count] = '0' + times
         self.timestamps = sorted(timestamps)
         
+        
     def algorithm(self):
+        d = defaultdict(int)
         at_start_of_tup = True
-        timestamps = self.timestamps
-        value = timestamps[0]
-        for count,times in enumerate(timestamps,start = 0):
-            if(at_start_of_tup):
-                tup = ()
-
+        t = tc.time(self.timestamps)
+        timestamps = t.to_seconds()
+        
+        for time in timestamps:
+            if at_start_of_tup:
+                tup = (time,time+3)
+                d[tup] += 1
+                at_start_of_tup = False
+            elif time in range(tup[0],tup[1]+4):
+                d[tup] += 1
+            else:
+                at_start_of_tup = True
+                
+        o =  OrderedDict(sorted(d.items(),key = lambda t:t[1],reverse = True))
+        print(o)
+        #o = OrderedDict(sorted(d.items(),key = lambda t:t[0]))
+        
+        return dict(d)
     
 #parses the current webpage for comments 
 def parse_currpage(json_file: 'json')-> [str]:
@@ -46,11 +60,10 @@ if __name__ == '__main__':
     gurl = connect.TEST_URL
     glist = []
     
-    #30 is just an arbitrary number until i figure out how to do this properly 
+    #30 is just an arbitrary number until I figure out how to do this properly 
     for i in range(10):
         try:
-            #api has strange format so i catch the error and pass it.
-            #not good format
+            #api has strange format so I catch the error and pass it.
             json2 = connect.generate_json(gurl)
             for i in parse_currpage(json2):
                 glist.append(i)
@@ -61,4 +74,5 @@ if __name__ == '__main__':
             
     a = algorithm(glist)
     a.sort_timestamps()
+    print(a.algorithm())
             
