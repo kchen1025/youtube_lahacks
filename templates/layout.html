@@ -51,12 +51,13 @@
                 <div id="player"></div>
 
                 <script>
-                var glob;
+                var glob = [];
 
                 function test_func(data) {
                     console.log(data);
                     glob = data
                 }
+
                 test_func({{ data|safe }})
                 // 2. This code loads the IFrame Player API code asynchronously.
                 var tag = document.createElement('script');
@@ -69,52 +70,54 @@
                 //    after the API code downloads.
                 var player;
                 function onYouTubeIframeAPIReady() {
-                  player = new YT.Player('player', {
+                    player = new YT.Player('player', {
                     height: '390',
                     width: '640',
-                    videoId: 'M7lc1UVf-VE',
+                    videoId: '91lYBbBkftA',
                     events: {
                       'onReady': onPlayerReady,
-                      'onStateChange': onPlayerStateChange
+                      'onStateChange': onytplayerStateChange
                     }
                   });
                 }
 
+                var l = [140,80,20,10];
+                var counter = l.length;
                 // 4. The API will call this function when the video player is ready.
+                
                 function onPlayerReady(event) {
-                  event.target.playVideo();
+                  executeVideo(event);
                 }
 
                 // 5. The API calls this function when the player's state changes.
                 //    The function indicates that when playing a video (state=1),
                 //    the player should play for six seconds and then stop.
-                var done = false;
-                function onPlayerStateChange(event) {
-                  //while(event.data == YT.PlayerState.PLAYING && !done) {
-                    // for(i in glob){
-                    //   player.seekTo(i[0]);
-                    //   while(player.getCurrentTime() < i[1]){
-                    //     //pass
-                    //   }
-                    // }
-                    // done = true;
-                  //}
 
-                  player.seekTo(40)
+                
 
-                  // while(event.data == YT.PlayerState.PLAYING && !done) {
-                  //   player.seekTo(40)
-                  //   if(player.getCurrentTime()==45){
-                  //     player.seekTo(60)  
-                  //   }
-                    
-                  //   //setTimeout(stopVideo, 6000);
-                  //   done = true;
-                  // }
+                function onytplayerStateChange(event) {
+                  //alert("state changed " + event.data);
+                  if(event.data == YT.PlayerState.BUFFERING || event.data == YT.PlayerState.PLAYING){
+                    executeVideo(event);
+                  }    
                 }
-             //   function stopVideo() {
-              //    player.stopVideo();
-              //  }
+
+                function executeVideo(event){
+                   if(event.data == null){
+                      player.playVideo();
+                   }
+                   else{
+
+                      for(; counter > 0; counter--){
+                        setTimeout(function (){ player.seekTo(l.pop()); },6000 * counter);
+                   }
+                }
+              }
+
+
+            
+                
+
               </script>
 
             <p class="lead">
