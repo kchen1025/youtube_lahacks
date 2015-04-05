@@ -1,4 +1,5 @@
 import json
+import re
 import urllib.request
 import urllib.parse
 from pprint import pprint
@@ -48,6 +49,7 @@ def pull_video_time(json_file:'json')->int:
 
     return duration
 
-
+def parse_url_for_id(url:str):
+     VIDEO_ID = url[32:]
     
     
