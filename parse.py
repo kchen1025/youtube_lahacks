@@ -66,7 +66,7 @@ def parse_currpage(json_file: 'json')-> [str]:
 
 
 if __name__ == '__main__':
-    gurl = connect.TEST_URL
+    gurl = connect.TEST_URL + connect.VIDEO_ID + connect.COMMENT_REQUEST
     glist = []
 
     url = connect.URL

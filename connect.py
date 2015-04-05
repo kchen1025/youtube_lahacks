@@ -6,7 +6,8 @@ from pprint import pprint
 
 API_KEY = 'AIzaSyB2nClBJR9aP5clL6c15uIkPhJACccZmOM'
 URL = 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='
-TEST_URL = 'http://gdata.youtube.com/feeds/api/videos/WczKOeAqkf8/comments?orderby=published&alt=json&max-results=30&start-index=1'
+TEST_URL = 'http://gdata.youtube.com/feeds/api/videos/'
+COMMENT_REQUEST = '/comments?orderby=published&alt=json&max-results=30&start-index=1'
 #TEST_URL = 'http://gdata.youtube.com/feeds/api/videos/91lYBbBkftA/comments?orderby=published&alt=json&max-results=30&start-index=1'
 VIDEO_ID = 'WczKOeAqkf8' 
 
