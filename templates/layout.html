@@ -51,6 +51,13 @@
                 <div id="player"></div>
 
                 <script>
+                var glob;
+
+                function test_func(data) {
+                    console.log(data);
+                    glob = data
+                }
+                test_func({{ data|safe }})
                 // 2. This code loads the IFrame Player API code asynchronously.
                 var tag = document.createElement('script');
 
@@ -83,14 +90,31 @@
                 //    the player should play for six seconds and then stop.
                 var done = false;
                 function onPlayerStateChange(event) {
-                  if (event.data == YT.PlayerState.PLAYING && !done) {
-                    setTimeout(stopVideo, 6000);
-                    done = true;
-                  }
+                  //while(event.data == YT.PlayerState.PLAYING && !done) {
+                    // for(i in glob){
+                    //   player.seekTo(i[0]);
+                    //   while(player.getCurrentTime() < i[1]){
+                    //     //pass
+                    //   }
+                    // }
+                    // done = true;
+                  //}
+
+                  player.seekTo(40)
+
+                  // while(event.data == YT.PlayerState.PLAYING && !done) {
+                  //   player.seekTo(40)
+                  //   if(player.getCurrentTime()==45){
+                  //     player.seekTo(60)  
+                  //   }
+                    
+                  //   //setTimeout(stopVideo, 6000);
+                  //   done = true;
+                  // }
                 }
-                function stopVideo() {
-                  player.stopVideo();
-                }
+             //   function stopVideo() {
+              //    player.stopVideo();
+              //  }
               </script>
 
             <p class="lead">
