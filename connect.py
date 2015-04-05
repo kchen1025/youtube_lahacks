@@ -13,7 +13,7 @@ COMMENT_REQUEST = '/comments?orderby=published&alt=json&max-results=30&start-ind
 VIDEO_ID = 'WczKOeAqkf8' 
 
 
-def get_result(url: str)-> 'json':
+def get_result(url):#-> 'json':
     '''takes the url from build_url and generates json from it'''
     response = None
 
@@ -26,16 +26,16 @@ def get_result(url: str)-> 'json':
         if response != None:
             response.close()
 
-def next_url(json_file:'json')->str:
+def next_url(json_file): #->str:
     return json_file['feed']['link'][3]['href']
 
 
-def generate_json(url:str)-> 'json':
+def generate_json(url):#-> 'json':
     '''take in the url and return the json file that it retrieves'''  
     result = get_result(url)
     return result
 
-def pull_video_time(json_file:'json')->int:
+def pull_video_time(json_file):#->int:
     temp = json_file['items'][0]['contentDetails']['duration'][2:]
     
     counter = 0
@@ -49,7 +49,7 @@ def pull_video_time(json_file:'json')->int:
 
     return duration
 
-def parse_url_for_id(url:str):
+def parse_url_for_id(url):
      VIDEO_ID = url[32:]
     
     

@@ -1,5 +1,5 @@
 class time:
-    def __init__(self,timestamp_list: [str]):
+    def __init__(self,timestamp_list):
         self.timestamp_list = timestamp_list
            
     #converts string timestamps into int seconds  
