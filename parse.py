@@ -35,18 +35,25 @@ class algorithm:
                 at_start_of_tup = True
                 
         o =  OrderedDict(sorted(d.items(),key = lambda t:t[1],reverse = True))
-        #o = OrderedDict(sorted(d.items(),key = lambda t:t[0]))
-        num_highlights = int(video_duration/60)
-        highlights_list = []
-
-        for key in o:
-            highlights_list.append(key)
-            if len(highlights_list) == num_highlights:
-                break
-            
-
-        new_list = [i for i in sorted(highlights_list, key=lambda highlights:highlights[0])]
+        new_list = []
         
+        if(len(o) > 10):
+            num_highlights = int(video_duration/60)
+            highlights_list = []
+
+            for key in o:
+                highlights_list.append(key)
+                if len(highlights_list) == num_highlights:
+                    break
+            
+            new_list = [i for i in sorted(highlights_list, key=lambda highlights:highlights[0])]
+        elif(video_duration > 60):
+            tuple_start = 30
+            num_highlights = int(video_duration/60)
+            for i in range [num_highlights]:
+                new_list.append((tuple_start, tuple_start+3))
+                tuple_start += 30
+            
         return new_list
     
 #parses the current webpage for comments 
