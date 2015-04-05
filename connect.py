@@ -5,10 +5,10 @@ from pprint import pprint
 
 
 API_KEY = 'AIzaSyB2nClBJR9aP5clL6c15uIkPhJACccZmOM'
-URL = 'https://www.googleapis.com/youtube/v3/videos?id='
+URL = 'https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id='
 TEST_URL = 'http://gdata.youtube.com/feeds/api/videos/WczKOeAqkf8/comments?orderby=published&alt=json&max-results=30&start-index=1'
 #TEST_URL = 'http://gdata.youtube.com/feeds/api/videos/91lYBbBkftA/comments?orderby=published&alt=json&max-results=30&start-index=1'
-VIDEO_ID = '91lYBbBkftA' 
+VIDEO_ID = 'WczKOeAqkf8' 
 
 
 def get_result(url: str)-> 'json':
@@ -33,9 +33,19 @@ def generate_json(url:str)-> 'json':
     result = get_result(url)
     return result
 
-def pull_video_time(json_file:'json')->str:
-    pass
+def pull_video_time(json_file:'json')->int:
+    temp = json_file['items'][0]['contentDetails']['duration'][2:]
+    
+    counter = 0
+    duration = 0
+    for cur_char in temp[::-1]:
+        if(counter % 3 == 0):
+            counter += 1
+            continue
+        duration += pow(60,int(counter / 3))*( 10 if ((counter+1) % 3) == 0 else 1 )* int(cur_char)
+        counter += 1
 
+    return duration
 
 
     
