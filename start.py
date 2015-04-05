@@ -2,6 +2,7 @@ import json
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, render_template, flash
 from contextlib import closing
+import parse
 
 # configuration
 DATABASE = '/tmp/flaskr.db'
@@ -16,7 +17,7 @@ app.config.from_object(__name__)
 
 @app.route('/')
 def my_view():
-    data = [(10,15),(20,25),(30,35),(40,45)]
+    data = [10,20,30,40]
     return render_template('layout.html', data=json.dumps(data))
 
 # @app.route('/')
