@@ -50,7 +50,7 @@ class algorithm:
         elif(video_duration > 60):
             tuple_start = 30
             num_highlights = int(video_duration/60)
-            for i in range [num_highlights]:
+            for i in range(num_highlights):
                 new_list.append((tuple_start, tuple_start+3))
                 tuple_start += 30
             
@@ -68,7 +68,8 @@ def parse_currpage(json_file):
                 #printing regex match for the timestamp in youtube comments 
                 time_stamps.append(re.search(r'([0-9]{1,2}:[0-9][0-9])',match.string).group(0))
         except IndexError:
-            print("error move on")
+            pass
+            #print("error move on")
     return time_stamps
 
 def run_parse():
@@ -80,7 +81,7 @@ def run_parse():
     video_duration = connect.pull_video_time(json2)
     
     #30 is just an arbitrary number until I figure out how to do this properly 
-    for i in range(10):
+    for i in range(30):
         try:
             #api has strange format so I catch the error and pass it.
             json2 = connect.generate_json(gurl)
@@ -88,42 +89,21 @@ def run_parse():
                 glist.append(i)
             gurl = connect.next_url(json2)
         except IndexError:
-            print("error print output")
+            pass
+            #print("error print output")
             
             
     a = algorithm(glist)
     a.sort_timestamps()
+    print(a.algorithm())
     b = a.algorithm()
+    #print(b)
     c = []
     for i in b:
         c.append(i[0])
     c.reverse()
     return c
-    #print(a.algorithm())
 
-
-# if __name__ == '__main__':
-#     gurl = connect.TEST_URL + connect.VIDEO_ID + connect.COMMENT_REQUEST
-#     glist = []
-# 
-#     url = connect.URL
-#     json2 = connect.generate_json(url + connect.VIDEO_ID + "&key=" + connect.API_KEY)
-#     video_duration = connect.pull_video_time(json2)
-#     
-#     #30 is just an arbitrary number until I figure out how to do this properly 
-#     for i in range(10):
-#         try:
-#             #api has strange format so I catch the error and pass it.
-#             json2 = connect.generate_json(gurl)
-#             for i in parse_currpage(json2):
-#                 glist.append(i)
-#             gurl = connect.next_url(json2)
-#         except IndexError:
-#             print("error print output")
-#             
-#             
-#     a = algorithm(glist)
-#     a.sort_timestamps()
 
 
 

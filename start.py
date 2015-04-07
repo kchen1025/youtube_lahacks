@@ -17,8 +17,9 @@ app.config.from_object(__name__)
 
 @app.route('/')
 def my_view():
-    print(parse.run_parse())
-    data = [10,20,30,40]
+    #data = [10,20,30,40]
+    data = parse.run_parse()
+    print(data)
     return render_template('layout.html', data=json.dumps(data))
 
 # @app.route('/')
